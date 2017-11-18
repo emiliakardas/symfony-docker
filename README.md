@@ -32,10 +32,38 @@ Build and run the containers:
 docker-compose up -d --build
 ```
 
-Once that's done, you should be able to access the application on the IP that docker (or Docker Machine) is running at.
+Then
 
-## FAQ
+```sh
+docker-compose exec app bash
+```
 
-Coming soon...
+In container run:
 
-Enjoy!
+```sh
+composer install
+```
+
+And set parameters for config:
+- `database_host`: db
+- `database_port`: 3306
+- `database_name`: symfony
+- `database_user`: symfony
+- `database_password`: qwerty1@#
+
+```sh
+exit
+```
+
+Fix permission error:
+
+```sh
+sudo chown 1000:1000 var -R
+```
+
+
+Last step
+
+```sh
+docker-compose down && docker-compose up -d
+```

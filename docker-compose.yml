@@ -1,19 +1,45 @@
 version: '2'
-
 services:
 
-  app:
-    container_name: sf.app
-    build: .docker/php
-    volumes:
-      - .:/app
-      - ./var/logs:/app/var/logs
-      - ./var/cache.:/app/var/cache
+    app:
+        container_name: app
+        build: .docker/php
+        restart: always
+        networks:
+            - net
+        volumes:
+            - '.:/app'
+            # - './var/logs:/app/var/logs'
+            # - './var/cache.:/app/var/cache'
 
-  nginx:
-    container_name: sf.nginx
-    build: .docker/nginx
-    volumes_from:
-      - app
-    ports:
-      - "81:80"
+    db:
+        container_name: db
+        environment:
+            MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+            MYSQL_DATABASE: symfony
+            MYSQL_USER: symfony
+            MYSQL_PASSWORD: qwerty1@#
+        image: 'mariadb:10.2.7'
+        restart: always
+        networks:
+            - net
+        volumes:
+            - 'mysql_data:/var/lib/mysql'
+
+    nginx:
+        container_name: nginx
+        build: .docker/nginx
+        ports:
+            - '81:80'
+        restart: always
+        networks:
+            - net
+        volumes_from:
+            - app
+
+
+volumes:
+    mysql_data:
+
+networks:
+    net:

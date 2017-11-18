@@ -51,4 +51,6 @@ RUN docker-php-ext-enable xdebug \
 
 RUN usermod -u 1000 www-data
 
+WORKDIR /app
+
 CMD php-fpm -F
