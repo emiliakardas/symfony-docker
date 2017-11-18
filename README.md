@@ -4,6 +4,7 @@ Symfony Docker Edition [![by](https://img.shields.io/badge/by-%40drgomesp-ff69b4
 ========================
 
 The *unofficial* Symfony Docker Edition – by [@drgomesp](https://github.com/drgomesp)
+
 Improvments – by [@jakubszalaty](https://github.com/jakubszalaty)
 
 http://drgomesp.github.io/symfony-docker/
