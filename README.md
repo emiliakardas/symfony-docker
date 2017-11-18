@@ -4,6 +4,7 @@ Symfony Docker Edition [![by](https://img.shields.io/badge/by-%40drgomesp-ff69b4
 ========================
 
 The *unofficial* Symfony Docker Edition – by [@drgomesp](https://github.com/drgomesp)
+Improvments – by [@jakubszalaty](https://github.com/jakubszalaty)
 
 http://drgomesp.github.io/symfony-docker/
 
@@ -18,7 +19,6 @@ Table of Contents
 ==================
 
 - [Installation](#installation)
-- [FAQ](#faq)
 
 ## Installation
 
@@ -35,13 +35,7 @@ docker-compose up -d --build
 Then
 
 ```sh
-docker-compose exec app bash
-```
-
-In container run:
-
-```sh
-composer install
+docker-compose exec app php composer.phar install
 ```
 
 And set parameters for config:
@@ -51,19 +45,12 @@ And set parameters for config:
 - `database_user`: symfony
 - `database_password`: qwerty1@#
 
-```sh
-exit
-```
-
 Fix permission error:
 
-```sh
-sudo chown 1000:1000 var -R
-```
-
-
-Last step
+> When you have `Cache directory "/app/var/cache/dev" is not writable.` error after docker-compose install.
 
 ```sh
-docker-compose down && docker-compose up -d
+sudo chown 1000:1000 . -R
 ```
+
+Enjoy!

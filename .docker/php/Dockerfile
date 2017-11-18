@@ -2,26 +2,29 @@ FROM php:7.1-fpm
 
 LABEL maintainer "Daniel Ribeiro <drgomesp@gmail.com>"
 
+RUN usermod -u 1000 www-data && mkdir /app && chown -R www-data /app
+
+
+WORKDIR /app
+
+
 RUN apt-get update \
-	&& apt-get install -y \
-		zip \
-		unzip \
-		vim \
-		wget \
-		curl \
-		git \
-		mysql-client \
-		moreutils \
-		dnsutils \
-		zlib1g-dev \
-		libicu-dev \
-		libmemcached-dev \
-		g++ \
+    && apt-get install -y \
+    zip \
+    unzip \
+    vim \
+    wget \
+    curl \
+    git \
+    mysql-client \
+    moreutils \
+    dnsutils \
+    zlib1g-dev \
+    libicu-dev \
+    libmemcached-dev \
+    g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer --version
 
 # Set your timezone here
 #RUN rm /etc/localtime
@@ -49,8 +52,10 @@ RUN docker-php-ext-enable xdebug \
     && echo "xdebug.idekey = \"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.remote_port = 9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-RUN usermod -u 1000 www-data
+USER www-data
 
-WORKDIR /app
+# Install Composer
+# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# RUN composer --version
 
 CMD php-fpm -F

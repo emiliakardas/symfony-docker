@@ -10,7 +10,7 @@ services:
         volumes:
             - '.:/app'
             # - './var/logs:/app/var/logs'
-            # - './var/cache.:/app/var/cache'
+            # - './var/cache:/app/var/cache'
 
     db:
         container_name: db
